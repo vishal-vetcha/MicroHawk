@@ -1,0 +1,15 @@
+{
+  "references": [
+    "MicroHawk.Contracts",
+    "MicroHawk.World",
+    "MicroHawk.Simulation",
+    "MicroHawk.Presentation",
+    "MicroHawk.Safety",
+    "MicroHawk.Flight"
+  ],
+  "autoReferenced": false,
+  "name": "MicroHawk.Tests.PlayMode",
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}

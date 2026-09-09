@@ -1,0 +1,13 @@
+{
+  "references": [
+    "MicroHawk.Contracts",
+    "MicroHawk.World",
+    "MicroHawk.Safety",
+    "MicroHawk.Flight",
+    "MicroHawk.Presentation"
+  ],
+  "autoReferenced": false,
+  "noEngineReferences": false,
+  "name": "MicroHawk.Simulation",
+  "rootNamespace": "MicroHawk.Simulation"
+}

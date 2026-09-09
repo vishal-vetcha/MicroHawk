@@ -1,0 +1,9 @@
+{
+  "references": [
+    "MicroHawk.Contracts"
+  ],
+  "autoReferenced": false,
+  "noEngineReferences": false,
+  "name": "MicroHawk.World",
+  "rootNamespace": "MicroHawk.World"
+}

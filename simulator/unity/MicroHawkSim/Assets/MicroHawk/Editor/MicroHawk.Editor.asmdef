@@ -1,0 +1,15 @@
+{
+  "references": [
+    "MicroHawk.Contracts",
+    "MicroHawk.World",
+    "MicroHawk.Simulation",
+    "MicroHawk.Presentation",
+    "Unity.RenderPipelines.Universal.Runtime",
+    "Unity.RenderPipelines.Core.Runtime"
+  ],
+  "autoReferenced": false,
+  "includePlatforms": [
+    "Editor"
+  ],
+  "name": "MicroHawk.Editor"
+}
