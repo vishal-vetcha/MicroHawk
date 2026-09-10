@@ -4,7 +4,7 @@ namespace MicroHawk.Contracts
     public enum FlightState { Landed, Armed, TakingOff, Hovering, Flying, Holding, ReturningHome, Landing, Emergency }
     public enum ExecutionStatus { Accepted, Rejected, Executing, Completed, Failed, Interrupted }
     public enum SafetyStatus { Approved, Rejected, ReturnHomeRequired, EmergencyLandRequired }
-    public enum ReasonCode { None, InvalidCommand, InvalidState, NonFinite, AltitudeLimit, Geofence, SpeedLimit, BlockedRoute, NoLandingSite, BatteryTooLow, LowBattery, CriticalBattery, FailsafeActive, Busy, Timeout, Obstacle, Reset, Superseded, Touchdown, QueueFull, StaleSession }
+    public enum ReasonCode { None, InvalidCommand, InvalidState, NonFinite, AltitudeLimit, Geofence, SpeedLimit, BlockedRoute, NoLandingSite, BatteryTooLow, LowBattery, CriticalBattery, FailsafeActive, Busy, Timeout, Obstacle, Reset, Superseded, Touchdown, QueueFull, StaleSession, ConnectionLoss }
 
     public abstract class FlightCommand
     {
@@ -53,3 +53,4 @@ namespace MicroHawk.Contracts
         public SafetyDecision(SafetyStatus status,ReasonCode reason=ReasonCode.None){Status=status;Reason=reason;}
     }
 }
+

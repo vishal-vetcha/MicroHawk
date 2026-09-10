@@ -27,6 +27,8 @@ namespace MicroHawk.Simulation
         {
             Runtime=gameObject.AddComponent<FlightRuntime>();
             Runtime.Initialize(this);
+            string token=Environment.GetEnvironmentVariable("MICROHAWK_TOKEN");
+            if(!string.IsNullOrEmpty(token))gameObject.AddComponent<PythonBridge>().Initialize(Runtime,token);
         }
         private void Awake() => ValidateConfiguration();
 
@@ -53,4 +55,5 @@ namespace MicroHawk.Simulation
 #endif
     }
 }
+
 

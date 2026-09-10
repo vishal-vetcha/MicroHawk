@@ -161,6 +161,26 @@ namespace MicroHawk.Tests
             Assert.That(results.Exists(r=>r.Status==ExecutionStatus.Interrupted&&r.Reason==ReasonCode.Reset),Is.True);
             yield return null;
         }
+        [UnityTest]
+        public IEnumerator DisconnectUsesPhysicalBrakeAndDoesNotTeleport()
+        {
+            Takeoff();Send(new MoveToCommand(new FlightVector(0,-15,4.535)));Step(50);
+            runtime.ConnectionLost();Step(400);
+            Assert.That(runtime.State,Is.EqualTo(FlightState.Holding));
+            Assert.That(runtime.Telemetry.Body.Velocity.Length,Is.LessThan(.25));
+            Assert.That(results.Exists(r=>r.Status==ExecutionStatus.Failed&&r.Reason==ReasonCode.ConnectionLoss),Is.True);
+            yield return null;
+        }
+        [UnityTest]
+        public IEnumerator LocalBatteryInjectionDrivesRealSafetyOverrides()
+        {
+            Takeoff();runtime.InjectBatteryForDemo(24);Step(5);
+            Assert.That(runtime.Telemetry.Safety.Status,Is.EqualTo(SafetyStatus.ReturnHomeRequired));
+            runtime.InjectBatteryForDemo(11);Step(5);
+            Assert.That(runtime.State,Is.EqualTo(FlightState.Emergency));
+            Until(()=>runtime.State==FlightState.Landed);
+            Assert.That(runtime.Telemetry.Body.GroundContact,Is.True);yield return null;
+        }
         private void Capture(string name)
         {
             if(SystemInfo.graphicsDeviceType==UnityEngine.Rendering.GraphicsDeviceType.Null)return;
@@ -188,6 +208,7 @@ namespace MicroHawk.Tests
         }
     }
 }
+
 
 
 

@@ -1,0 +1,14 @@
+{
+  "type": "command",
+  "schema_version": 1,
+  "session_id": "session",
+  "authority_id": "authority",
+  "command_id": "test1",
+  "sequence": 1,
+  "issued_at_tick": 0,
+  "expires_at_tick": 100,
+  "action_type": "Takeoff",
+  "parameters": {
+    "altitude": 4.0
+  }
+}

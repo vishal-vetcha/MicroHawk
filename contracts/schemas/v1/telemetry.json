@@ -1,0 +1,132 @@
+{
+  "$defs": {
+    "Vector": {
+      "additionalProperties": false,
+      "properties": {
+        "east": {
+          "title": "East",
+          "type": "number"
+        },
+        "north": {
+          "title": "North",
+          "type": "number"
+        },
+        "up": {
+          "title": "Up",
+          "type": "number"
+        }
+      },
+      "required": [
+        "east",
+        "north",
+        "up"
+      ],
+      "title": "Vector",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "const": "telemetry",
+      "title": "Type",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "session_id": {
+      "title": "Session Id",
+      "type": "string"
+    },
+    "tick": {
+      "title": "Tick",
+      "type": "integer"
+    },
+    "simulation_seconds": {
+      "title": "Simulation Seconds",
+      "type": "number"
+    },
+    "position": {
+      "$ref": "#/$defs/Vector"
+    },
+    "velocity": {
+      "$ref": "#/$defs/Vector"
+    },
+    "heading": {
+      "title": "Heading",
+      "type": "number"
+    },
+    "altitude": {
+      "title": "Altitude",
+      "type": "number"
+    },
+    "battery": {
+      "title": "Battery",
+      "type": "number"
+    },
+    "state": {
+      "title": "State",
+      "type": "string"
+    },
+    "armed": {
+      "title": "Armed",
+      "type": "boolean"
+    },
+    "command": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Command"
+    },
+    "target": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Vector"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "home": {
+      "$ref": "#/$defs/Vector"
+    },
+    "safety_status": {
+      "title": "Safety Status",
+      "type": "string"
+    },
+    "safety_reason": {
+      "title": "Safety Reason",
+      "type": "string"
+    }
+  },
+  "required": [
+    "type",
+    "schema_version",
+    "session_id",
+    "tick",
+    "simulation_seconds",
+    "position",
+    "velocity",
+    "heading",
+    "altitude",
+    "battery",
+    "state",
+    "armed",
+    "command",
+    "target",
+    "home",
+    "safety_status",
+    "safety_reason"
+  ],
+  "title": "Telemetry",
+  "type": "object"
+}

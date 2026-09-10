@@ -1,0 +1,60 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "const": "handshake",
+      "title": "Type",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "session_id": {
+      "title": "Session Id",
+      "type": "string"
+    },
+    "authority_id": {
+      "title": "Authority Id",
+      "type": "string"
+    },
+    "current_tick": {
+      "title": "Current Tick",
+      "type": "integer"
+    },
+    "simulator_version": {
+      "title": "Simulator Version",
+      "type": "string"
+    },
+    "world_revision": {
+      "title": "World Revision",
+      "type": "string"
+    },
+    "coordinate_frame": {
+      "const": "facility_enu_meters",
+      "title": "Coordinate Frame",
+      "type": "string"
+    },
+    "capabilities": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Capabilities",
+      "type": "array"
+    }
+  },
+  "required": [
+    "type",
+    "schema_version",
+    "session_id",
+    "authority_id",
+    "current_tick",
+    "simulator_version",
+    "world_revision",
+    "coordinate_frame",
+    "capabilities"
+  ],
+  "title": "Handshake",
+  "type": "object"
+}

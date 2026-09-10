@@ -1,0 +1,109 @@
+{
+  "$defs": {
+    "Vector": {
+      "additionalProperties": false,
+      "properties": {
+        "east": {
+          "title": "East",
+          "type": "number"
+        },
+        "north": {
+          "title": "North",
+          "type": "number"
+        },
+        "up": {
+          "title": "Up",
+          "type": "number"
+        }
+      },
+      "required": [
+        "east",
+        "north",
+        "up"
+      ],
+      "title": "Vector",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "event_id": {
+      "title": "Event Id",
+      "type": "string"
+    },
+    "type": {
+      "const": "RestrictedZoneDwell",
+      "title": "Type",
+      "type": "string"
+    },
+    "session_id": {
+      "title": "Session Id",
+      "type": "string"
+    },
+    "zone": {
+      "const": "restricted_zone_a",
+      "title": "Zone",
+      "type": "string"
+    },
+    "track_id": {
+      "title": "Track Id",
+      "type": "string"
+    },
+    "entered_tick": {
+      "title": "Entered Tick",
+      "type": "integer"
+    },
+    "entered_time": {
+      "title": "Entered Time",
+      "type": "number"
+    },
+    "trigger_tick": {
+      "title": "Trigger Tick",
+      "type": "integer"
+    },
+    "trigger_time": {
+      "title": "Trigger Time",
+      "type": "number"
+    },
+    "dwell_seconds": {
+      "exclusiveMinimum": 0,
+      "title": "Dwell Seconds",
+      "type": "number"
+    },
+    "confidence": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Confidence",
+      "type": "number"
+    },
+    "evidence": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 16,
+      "minItems": 1,
+      "title": "Evidence",
+      "type": "array"
+    },
+    "position": {
+      "$ref": "#/$defs/Vector"
+    }
+  },
+  "required": [
+    "event_id",
+    "type",
+    "session_id",
+    "zone",
+    "track_id",
+    "entered_tick",
+    "entered_time",
+    "trigger_tick",
+    "trigger_time",
+    "dwell_seconds",
+    "confidence",
+    "evidence",
+    "position"
+  ],
+  "title": "MissionEvent",
+  "type": "object"
+}

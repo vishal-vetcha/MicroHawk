@@ -1,0 +1,399 @@
+{
+  "$defs": {
+    "Empty": {
+      "additionalProperties": false,
+      "properties": {},
+      "title": "Empty",
+      "type": "object"
+    },
+    "Hold": {
+      "additionalProperties": false,
+      "properties": {
+        "duration": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Duration"
+        }
+      },
+      "title": "Hold",
+      "type": "object"
+    },
+    "HoldCommand": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "command",
+          "default": "command",
+          "title": "Type",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "session_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Session Id",
+          "type": "string"
+        },
+        "authority_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Authority Id",
+          "type": "string"
+        },
+        "command_id": {
+          "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+          "title": "Command Id",
+          "type": "string"
+        },
+        "sequence": {
+          "minimum": 1,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "issued_at_tick": {
+          "minimum": 0,
+          "title": "Issued At Tick",
+          "type": "integer"
+        },
+        "expires_at_tick": {
+          "minimum": 1,
+          "title": "Expires At Tick",
+          "type": "integer"
+        },
+        "action_type": {
+          "const": "Hold",
+          "title": "Action Type",
+          "type": "string"
+        },
+        "parameters": {
+          "$ref": "#/$defs/Hold"
+        }
+      },
+      "required": [
+        "session_id",
+        "authority_id",
+        "command_id",
+        "sequence",
+        "issued_at_tick",
+        "expires_at_tick",
+        "action_type",
+        "parameters"
+      ],
+      "title": "HoldCommand",
+      "type": "object"
+    },
+    "MoveCommand": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "command",
+          "default": "command",
+          "title": "Type",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "session_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Session Id",
+          "type": "string"
+        },
+        "authority_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Authority Id",
+          "type": "string"
+        },
+        "command_id": {
+          "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+          "title": "Command Id",
+          "type": "string"
+        },
+        "sequence": {
+          "minimum": 1,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "issued_at_tick": {
+          "minimum": 0,
+          "title": "Issued At Tick",
+          "type": "integer"
+        },
+        "expires_at_tick": {
+          "minimum": 1,
+          "title": "Expires At Tick",
+          "type": "integer"
+        },
+        "action_type": {
+          "const": "MoveTo",
+          "title": "Action Type",
+          "type": "string"
+        },
+        "parameters": {
+          "$ref": "#/$defs/MoveTo"
+        }
+      },
+      "required": [
+        "session_id",
+        "authority_id",
+        "command_id",
+        "sequence",
+        "issued_at_tick",
+        "expires_at_tick",
+        "action_type",
+        "parameters"
+      ],
+      "title": "MoveCommand",
+      "type": "object"
+    },
+    "MoveTo": {
+      "additionalProperties": false,
+      "properties": {
+        "position": {
+          "$ref": "#/$defs/Vector"
+        },
+        "speed": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Speed"
+        }
+      },
+      "required": [
+        "position"
+      ],
+      "title": "MoveTo",
+      "type": "object"
+    },
+    "SimpleCommand": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "command",
+          "default": "command",
+          "title": "Type",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "session_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Session Id",
+          "type": "string"
+        },
+        "authority_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Authority Id",
+          "type": "string"
+        },
+        "command_id": {
+          "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+          "title": "Command Id",
+          "type": "string"
+        },
+        "sequence": {
+          "minimum": 1,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "issued_at_tick": {
+          "minimum": 0,
+          "title": "Issued At Tick",
+          "type": "integer"
+        },
+        "expires_at_tick": {
+          "minimum": 1,
+          "title": "Expires At Tick",
+          "type": "integer"
+        },
+        "action_type": {
+          "enum": [
+            "Arm",
+            "Disarm",
+            "Land",
+            "ReturnHome"
+          ],
+          "title": "Action Type",
+          "type": "string"
+        },
+        "parameters": {
+          "$ref": "#/$defs/Empty"
+        }
+      },
+      "required": [
+        "session_id",
+        "authority_id",
+        "command_id",
+        "sequence",
+        "issued_at_tick",
+        "expires_at_tick",
+        "action_type",
+        "parameters"
+      ],
+      "title": "SimpleCommand",
+      "type": "object"
+    },
+    "Takeoff": {
+      "additionalProperties": false,
+      "properties": {
+        "altitude": {
+          "title": "Altitude",
+          "type": "number"
+        }
+      },
+      "required": [
+        "altitude"
+      ],
+      "title": "Takeoff",
+      "type": "object"
+    },
+    "TakeoffCommand": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "command",
+          "default": "command",
+          "title": "Type",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "session_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Session Id",
+          "type": "string"
+        },
+        "authority_id": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Authority Id",
+          "type": "string"
+        },
+        "command_id": {
+          "pattern": "^[a-zA-Z0-9_-]{1,64}$",
+          "title": "Command Id",
+          "type": "string"
+        },
+        "sequence": {
+          "minimum": 1,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "issued_at_tick": {
+          "minimum": 0,
+          "title": "Issued At Tick",
+          "type": "integer"
+        },
+        "expires_at_tick": {
+          "minimum": 1,
+          "title": "Expires At Tick",
+          "type": "integer"
+        },
+        "action_type": {
+          "const": "Takeoff",
+          "title": "Action Type",
+          "type": "string"
+        },
+        "parameters": {
+          "$ref": "#/$defs/Takeoff"
+        }
+      },
+      "required": [
+        "session_id",
+        "authority_id",
+        "command_id",
+        "sequence",
+        "issued_at_tick",
+        "expires_at_tick",
+        "action_type",
+        "parameters"
+      ],
+      "title": "TakeoffCommand",
+      "type": "object"
+    },
+    "Vector": {
+      "additionalProperties": false,
+      "properties": {
+        "east": {
+          "title": "East",
+          "type": "number"
+        },
+        "north": {
+          "title": "North",
+          "type": "number"
+        },
+        "up": {
+          "title": "Up",
+          "type": "number"
+        }
+      },
+      "required": [
+        "east",
+        "north",
+        "up"
+      ],
+      "title": "Vector",
+      "type": "object"
+    }
+  },
+  "discriminator": {
+    "mapping": {
+      "Arm": "#/$defs/SimpleCommand",
+      "Disarm": "#/$defs/SimpleCommand",
+      "Hold": "#/$defs/HoldCommand",
+      "Land": "#/$defs/SimpleCommand",
+      "MoveTo": "#/$defs/MoveCommand",
+      "ReturnHome": "#/$defs/SimpleCommand",
+      "Takeoff": "#/$defs/TakeoffCommand"
+    },
+    "propertyName": "action_type"
+  },
+  "oneOf": [
+    {
+      "$ref": "#/$defs/SimpleCommand"
+    },
+    {
+      "$ref": "#/$defs/TakeoffCommand"
+    },
+    {
+      "$ref": "#/$defs/MoveCommand"
+    },
+    {
+      "$ref": "#/$defs/HoldCommand"
+    }
+  ]
+}

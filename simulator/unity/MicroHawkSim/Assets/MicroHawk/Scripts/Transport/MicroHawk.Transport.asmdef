@@ -1,0 +1,13 @@
+{
+  "name": "MicroHawk.Transport",
+  "rootNamespace": "MicroHawk.Transport",
+  "references": [
+    "MicroHawk.Contracts"
+  ],
+  "autoReferenced": false,
+  "noEngineReferences": true,
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "Newtonsoft.Json.dll"
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "const": "outcome",
+      "title": "Type",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "session_id": {
+      "title": "Session Id",
+      "type": "string"
+    },
+    "command_id": {
+      "title": "Command Id",
+      "type": "string"
+    },
+    "tick": {
+      "title": "Tick",
+      "type": "integer"
+    },
+    "status": {
+      "enum": [
+        "Received",
+        "Accepted",
+        "Rejected",
+        "Executing",
+        "Completed",
+        "Failed",
+        "Interrupted"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "reason": {
+      "title": "Reason",
+      "type": "string"
+    }
+  },
+  "required": [
+    "type",
+    "schema_version",
+    "session_id",
+    "command_id",
+    "tick",
+    "status",
+    "reason"
+  ],
+  "title": "Outcome",
+  "type": "object"
+}

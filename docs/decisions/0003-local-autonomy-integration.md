@@ -1,0 +1,13 @@
+# ADR 0003: Local end-to-end autonomy with authoritative Unity safety
+
+Status: implemented under the operator's 2026-09-10 final-pass authorization; supersedes historical M1-only stop gates, not the safety invariants.
+
+Keep the verified Rigidbody controller and industrial scene. Add a Python-hosted loopback WebSocket endpoint, authenticated with a local ignored operator token. Unity's client exchanges versioned schemas, snapshots and lifecycle outcomes. Strict C# admission validates schema/session/authority/sequence/expiry/idempotency before IFlightOperations. Networking never actuates physics. Remote or local requests use the same runtime queue and safety engine. Local accepted commands renew remote authority; reconnect requires a new authority and never resumes a Python mission automatically. Battery failsafes retain priority over connection-loss braking.
+
+Pydantic-constrained local Qwen interpretation feeds a deterministic typed planner/executor. The planner selects known navigation targets, not arbitrary model coordinates. Bounded conditional and rejected-route replans submit ordinary commands. Execution advances on terminal outcomes, not guessed flight durations. Polling/network liveness uses wall time; observation windows, tracking and dwell use Unity simulation ticks.
+
+Camera RGB plus calibration is a separate path from navigation metadata. A gimballed camera reads actual telemetry pose, renders 640x480 JPEG snapshots at a bounded request rate, and supplies no semantic scene labels. Calibrated OpenCV finds visible mannequin/damage/marker/vehicle candidates. Person ground location is an approximate ray/torso-height estimate, not a hidden worker transform. The local VLM was tried for visual semantics but hallucinated a vehicle in a wall image; that path is excluded from operational findings. Qwen remains the validated intent interpreter.
+
+SQLite stores actual requests, plans/revisions, decisions, outcomes and evidence. Reports and explanations are deterministic summaries of those records. FastAPI serves a small local command center. Windows offline one-phrase recognition returns a reviewable transcript to the same text endpoint; browser TTS and an offline Windows SAPI helper provide narration. No cloud runtime, LangGraph, vector database or third-party art is needed.
+
+The protocol reserves simulator reset and failure injection for local administration. Neither appears as an LLM/network flight action. The project does not claim general object detection, calibrated real crack measurement, real-person identity, universal collision avoidance or a working FlytBase connection.

@@ -1,5 +1,9 @@
 # MicroHawk development rules
 
+## Current authorization — 2026-09-10
+
+The operator explicitly authorizes the final end-to-end implementation pass: Python transport/missions, local LLM, sensor-derived perception/events, bounded replanning, memory, voice, dashboard, tests, demonstrations and documentation. This supersedes historical M1-only scope and stop gates below. Checkpoint and logical final commits are authorized; push main only if an existing origin authenticates. Never invent a remote. Preserve verified physical flight and the existing scene; changes require regression evidence. No model physics access or semantic-metadata detections. Work sequentially through major phases with tests, then report actual results and limitations. No third-party assets or large model downloads without disclosure. Historical sections describe M1 and do not prohibit this newly authorized work.
+
 ## Status and approval gate
 
 The operator approved the architecture and implementation plan for Milestone 1 on 2026-09-09, with expanded visual scene content. See `docs/architecture-plan.md`. All safety, physics, coordinate, testing and abstraction requirements remain in force. Later milestones are not authorized. Do not commit or push until explicitly authorized; architecture approval alone is not a request to commit or push.

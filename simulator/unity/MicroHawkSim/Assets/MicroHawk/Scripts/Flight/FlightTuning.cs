@@ -35,6 +35,11 @@ namespace MicroHawk.Flight
         private readonly BatterySettings settings;
         public double Percent { get; private set; }
         public BatteryModel(BatterySettings settings){this.settings=settings.ValidatedCopy();Percent=this.settings.InitialPercent;}
+        public void InjectLowerCharge(double percent)
+        {
+            if(!FlightVector.Finite(percent)||percent<0||percent>Percent)throw new ArgumentException("Demo injection may only decrease charge.");
+            Percent=percent;
+        }
         public void Tick(FlightState state,double speed,double dt)
         {
             double drain=state==FlightState.Landed?0:state==FlightState.Armed?settings.ArmedDrain:settings.HoverDrain+Math.Max(0,speed)*settings.MovementDrain;

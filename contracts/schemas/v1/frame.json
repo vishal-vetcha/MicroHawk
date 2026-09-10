@@ -1,0 +1,122 @@
+{
+  "$defs": {
+    "Vector": {
+      "additionalProperties": false,
+      "properties": {
+        "east": {
+          "title": "East",
+          "type": "number"
+        },
+        "north": {
+          "title": "North",
+          "type": "number"
+        },
+        "up": {
+          "title": "Up",
+          "type": "number"
+        }
+      },
+      "required": [
+        "east",
+        "north",
+        "up"
+      ],
+      "title": "Vector",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "const": "frame",
+      "title": "Type",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "session_id": {
+      "pattern": "^[a-zA-Z0-9_-]{1,100}$",
+      "title": "Session Id",
+      "type": "string"
+    },
+    "request_id": {
+      "pattern": "^[a-zA-Z0-9_-]{1,100}$",
+      "title": "Request Id",
+      "type": "string"
+    },
+    "tick": {
+      "minimum": 0,
+      "title": "Tick",
+      "type": "integer"
+    },
+    "simulation_seconds": {
+      "minimum": 0,
+      "title": "Simulation Seconds",
+      "type": "number"
+    },
+    "camera_id": {
+      "const": "rgb_gimbal",
+      "title": "Camera Id",
+      "type": "string"
+    },
+    "width": {
+      "const": 640,
+      "title": "Width",
+      "type": "integer"
+    },
+    "height": {
+      "const": 480,
+      "title": "Height",
+      "type": "integer"
+    },
+    "vertical_fov": {
+      "exclusiveMaximum": 170,
+      "exclusiveMinimum": 1,
+      "title": "Vertical Fov",
+      "type": "number"
+    },
+    "position": {
+      "$ref": "#/$defs/Vector"
+    },
+    "camera_position": {
+      "$ref": "#/$defs/Vector"
+    },
+    "forward": {
+      "$ref": "#/$defs/Vector"
+    },
+    "right": {
+      "$ref": "#/$defs/Vector"
+    },
+    "up": {
+      "$ref": "#/$defs/Vector"
+    },
+    "jpeg": {
+      "maxLength": 800000,
+      "title": "Jpeg",
+      "type": "string"
+    }
+  },
+  "required": [
+    "type",
+    "schema_version",
+    "session_id",
+    "request_id",
+    "tick",
+    "simulation_seconds",
+    "camera_id",
+    "width",
+    "height",
+    "vertical_fov",
+    "position",
+    "camera_position",
+    "forward",
+    "right",
+    "up",
+    "jpeg"
+  ],
+  "title": "CameraFrame",
+  "type": "object"
+}

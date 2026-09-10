@@ -24,7 +24,7 @@ namespace MicroHawk.Simulation
         private FlightVector home;
         private SafetyDecision safetyState;
         private long tick,session,nextId;
-        private bool initialized,timeout;
+        private bool initialized,timeout,connectionLost;
         private SimulationMode previousMode;
         public bool AutomaticStepping { get; set; }=true;
         public TelemetrySnapshot Telemetry=>publisher.Latest;
@@ -43,9 +43,12 @@ namespace MicroHawk.Simulation
             initialized=true;ResetSimulation();
             var panel=gameObject.AddComponent<OperationsPanel>();panel.Bind(this,this);
             var rotors=gameObject.AddComponent<RotorFeedback>();rotors.Bind(this,config.Drone.transform);
+            gameObject.AddComponent<SimulationDemoControls>().Bind(this);
         }
         private void FixedUpdate(){if(initialized&&AutomaticStepping)AdvanceOneTick();}
         private void OnDestroy(){if(initialized)Physics.simulationMode=previousMode;}
+        public void ConnectionLost()=>connectionLost=true;
+        public void InjectBatteryForDemo(double percent)=>battery.InjectLowerCharge(Math.Min(percent,battery.Percent));
         public long Submit(FlightCommand command,long expectedSession)
         {
             long id=++nextId;
@@ -60,7 +63,7 @@ namespace MicroHawk.Simulation
             if(!initialized)return;
             execution?.Interrupt(ReasonCode.Reset);
             foreach(var pending in queue)Outcome(pending.id,pending.command,ExecutionStatus.Interrupted,ReasonCode.Reset);
-            queue.Clear();session++;tick=nextId=0;timeout=false;
+            queue.Clear();session++;tick=nextId=0;timeout=false;connectionLost=false;
             limits=config.SafetyTuning.ValidatedCopy();
             safety=new SafetyEngine(limits,adapter);battery=new BatteryModel(config.BatteryTuning);
             execution=new FlightExecution(config.ControllerTuning);
@@ -80,6 +83,13 @@ namespace MicroHawk.Simulation
             var body=adapter.Read();
             var batteryDecision=safety.BatteryDecision(battery.Percent,execution.State);
             EnforceBattery(batteryDecision,body);
+            if(connectionLost)
+            {
+                connectionLost=false;
+                foreach(var pending in queue)Outcome(pending.id,pending.command,ExecutionStatus.Interrupted,ReasonCode.ConnectionLoss);
+                queue.Clear();
+                if(batteryDecision.Approved && FlightStateMachine.Airborne(execution.State) && execution.State!=FlightState.Landing)Brake(body,ReasonCode.ConnectionLoss);
+            }
             while(queue.Count>0)
             {
                 var pending=queue.Dequeue();
@@ -94,12 +104,12 @@ namespace MicroHawk.Simulation
             if(FlightStateMachine.Airborne(execution.State)&&execution.Target.HasValue)
             {
                 bool support=execution.State==FlightState.TakingOff||execution.IsLanding;
-                bool braking=execution.Permission.Cause is ReasonCode.Obstacle or ReasonCode.Timeout;
+                bool braking=execution.Permission.Cause is ReasonCode.Obstacle or ReasonCode.Timeout or ReasonCode.ConnectionLoss;
                 if(!braking&&!safety.RuntimeRouteClear(body,execution.Target.Value,support))
                     Brake(body,ReasonCode.Obstacle);
             }
             var output=execution.Tick(body,StepSeconds);
-            if(timeout){timeout=false;Brake(body,ReasonCode.Timeout);output=execution.Tick(body,StepSeconds);}
+            if(timeout){timeout=false;connectionLost=false;Brake(body,ReasonCode.Timeout);output=execution.Tick(body,StepSeconds);}
             adapter.Apply(output);adapter.Step(StepSeconds);
             battery.Tick(execution.State,adapter.Read().Velocity.Length,StepSeconds);
             if(tick%5==0)Publish();
@@ -147,4 +157,5 @@ namespace MicroHawk.Simulation
         private void Publish()=>publisher.Publish(new TelemetrySnapshot(session,tick,tick*StepSeconds,adapter.Read(),battery.Percent,execution.State,execution.ActiveCommand,execution.ActiveId,execution.Target,home,safetyState));
     }
 }
+
 

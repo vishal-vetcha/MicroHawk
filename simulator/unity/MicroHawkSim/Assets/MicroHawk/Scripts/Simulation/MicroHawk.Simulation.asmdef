@@ -4,10 +4,15 @@
     "MicroHawk.World",
     "MicroHawk.Safety",
     "MicroHawk.Flight",
-    "MicroHawk.Presentation"
+    "MicroHawk.Presentation",
+    "MicroHawk.Transport"
   ],
   "autoReferenced": false,
   "noEngineReferences": false,
   "name": "MicroHawk.Simulation",
-  "rootNamespace": "MicroHawk.Simulation"
+  "rootNamespace": "MicroHawk.Simulation",
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "Newtonsoft.Json.dll"
+  ]
 }

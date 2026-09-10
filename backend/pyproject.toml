@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=80"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "microhawk"
+version = "0.2.0"
+requires-python = ">=3.12,<3.13"
+dependencies = ["pydantic==2.13.5", "fastapi==0.141.1", "uvicorn==0.52.4", "websockets==17.1", "opencv-python==5.0.0.93", "numpy==2.5.3", "pillow==12.3.0", "httpx==0.28.1"]
+
+[project.optional-dependencies]
+test = ["pytest==9.1.1", "pytest-asyncio==1.4.0"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+microhawk = ["api/static/*"]
