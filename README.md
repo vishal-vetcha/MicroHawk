@@ -1800,22 +1800,6 @@ Research interests:
 * Deep Learning
 * Resource-Efficient AI
 
-**GitHub:** `[YOUR GITHUB PROFILE]`
-
-**LinkedIn:** `[YOUR LINKEDIN PROFILE]`
-
-**Email:** `[YOUR EMAIL]`
-
----
-
-# Repository
-
-```text
-[YOUR FINAL MICROHAWK GITHUB URL]
-```
-
----
-
 # Disclaimer
 
 MicroHawk is an experimental simulation and research project.
