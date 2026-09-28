@@ -18,33 +18,6 @@ The system is designed around one fundamental rule:
 
 > **AI may propose what the drone should do. Deterministic software decides what the drone is allowed to do.**
 
----
-
-# Demo
-
-## Demo Videos
-
-**End-to-End Autonomous Mission**
-
-`[DEMO VIDEO URL]`
-
-**Restricted Zone Autonomous Security Mission**
-
-`[DEMO VIDEO URL]`
-
-**Autonomous Structural Inspection**
-
-`[DEMO VIDEO URL]`
-
-**Voice-Controlled Mission + Spoken Report**
-
-`[DEMO VIDEO URL]`
-
-**Safety Override Demonstration**
-
-`[DEMO VIDEO URL]`
-
----
 
 # What MicroHawk Can Do
 
